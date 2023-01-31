@@ -3,4 +3,4 @@ project(dataStructure C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(dataStructure main.c)
+add_executable(dataStructure chapter1/main.c)
