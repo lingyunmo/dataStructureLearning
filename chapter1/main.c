@@ -1,13 +1,24 @@
 #include <stdio.h>
 
+void PrintN1(int N) {
+    int i;
+    for (i = 1; i <= N; i++) {
+        printf("%d ", i);
+    }
+}
+
+void PrintN2(int N) {
+    if (N > 0) {
+        PrintN2(N - 1);
+        printf("%d ", N);
+    }
+}
+
 int main() {
-    printf("The first program of data structure\n");
-    int a[9];
-    for (int i = 0; i < 9; i++) {
-        a[i] = i;
-    }
-    for (int i = 0; i < 9; i++) {
-        printf("%d ", a[i]);
-    }
+    int N;
+    scanf("%d", &N);
+    PrintN1(N);
+    printf("\n");
+    PrintN2(N);
     return 0;
 }
