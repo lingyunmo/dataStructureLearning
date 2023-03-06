@@ -9,19 +9,19 @@ typedef int Position;
 typedef struct LNode *PtrToLNode;
 struct LNode {
     ElementType Data[MAXSIZE];
-    Position Last;
+    struct LNode *Last;
 };
-typedef PtrToLNode List;
+typedef struct LNode *List;
 
-List MakeEmpty() {
-    List L;
+struct LNode * MakeEmpty() {
+    struct LNode *L;
     L = (List) malloc(sizeof(struct LNode));
     L->Last = -1;
     return L;
 }
 
-Position Find(List L, ElementType X) {
-    Position i = 0;
+struct LNode * Find(struct LNode *L, ElementType X) {
+    struct LNode *i = 0;
     while (i <= L->Last && L->Data[i] != X) {
         i++;
     }
@@ -32,8 +32,8 @@ Position Find(List L, ElementType X) {
     }
 }
 
-bool Insert(List L, ElementType X, int i) {
-    Position j;
+bool Insert(struct LNode *L, ElementType X, int i) {
+    struct LNode *j;
     if (L->Last == MAXSIZE - 1) {
         printf("表满");
         return false;
@@ -50,8 +50,8 @@ bool Insert(List L, ElementType X, int i) {
     return true;
 }
 
-bool Delete(List L, int i) {
-    Position j;
+bool Delete(struct LNode *L, int i) {
+    struct LNode *j;
     if (i < 1 || i > L->Last + 1) {
         printf("位置不合法");
         return false;
@@ -65,7 +65,7 @@ bool Delete(List L, int i) {
 
 //顺序表的实现
 int main() {
-    List L;
+    struct LNode *L;
     L = MakeEmpty();
     Insert(L, 1, 1);
     Insert(L, 2, 2);
