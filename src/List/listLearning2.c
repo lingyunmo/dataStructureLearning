@@ -1,5 +1,6 @@
 #include "stdio.h"
 #include "stdlib.h"
+
 #define ElementType int
 typedef struct LNode *PtrToLNode;
 
@@ -14,16 +15,19 @@ void InitList(List L) {
     L = (List) malloc(sizeof(struct LNode));
     L->Next = NULL;
 }
+
 int Length(List L) {
-    Position p = L;
+    Position p;
     int cnt = 0;
+    p = L;
     while (p) {
         p = p->Next;
         cnt++;
     }
     return cnt;
 }
-void CreateFromHead(List L){
+
+void CreateFromHead(List L) {
     List S;
     int x;
     scanf("%d", &x);
@@ -35,7 +39,8 @@ void CreateFromHead(List L){
         scanf("%d", &x);
     }
 }
-void CreateFromTail(List L){
+
+void CreateFromTail(List L) {
     List S, P;
     int x;
     P = L;
@@ -49,6 +54,7 @@ void CreateFromTail(List L){
     }
     P->Next = NULL;
 }
-int main(){
+
+int main() {
 
 }
