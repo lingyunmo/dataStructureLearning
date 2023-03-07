@@ -1,18 +1,19 @@
 #include <stdbool.h>
-#include "stdio.h"
-#include "stdlib.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 #define ElementType int
 #define MAXSIZE 10
 #define ERROR (-1)
 typedef int Position;
-typedef struct LNode *PtrToLNode;
+
 struct LNode {
     ElementType Data[MAXSIZE];
     Position Last;
 };
-typedef PtrToLNode List;
+typedef struct LNode *List;
 
+//顺序表的创建函数（初始化）
 List MakeEmpty() {
     List L;
     L = (List) malloc(sizeof(struct LNode));
@@ -20,6 +21,15 @@ List MakeEmpty() {
     return L;
 }
 
+//顺序表的查找按照序号查找
+int GetElem(List L, int i) {
+    if (i < 1 || i > L->Last + 1) {
+        return ERROR;
+    }
+    return L->Data[i - 1];
+}
+
+//顺序表的查找按照内容查找
 Position Find(List L, ElementType X) {
     Position i = 0;
     while (i <= L->Last && L->Data[i] != X) {
@@ -32,13 +42,14 @@ Position Find(List L, ElementType X) {
     }
 }
 
+//顺序表的插入
 bool Insert(List L, ElementType X, int i) {
     Position j;
     if (L->Last == MAXSIZE - 1) {
         printf("表满");
         return false;
     }
-    if (i < 0 || i > L->Last + 2) {
+    if (i < 1 || i > L->Last + 2) {
         printf("位置不合法");
         return false;
     }
@@ -63,20 +74,33 @@ bool Delete(List L, int i) {
     return true;
 }
 
+//删除所有值大于min并且小于max的元素
+//删除后表中元素保持顺序存储
+//并且相对位置不能改变。
+bool DeleteRange(List L, ElementType min, ElementType max) {
+    Position i, j;
+    for (i = 0; i <= L->Last; i++) {
+        if (L->Data[i] > min && L->Data[i] < max) {
+            for (j = i; j <= L->Last; j++) {
+                L->Data[j] = L->Data[j + 1];
+            }
+            L->Last--;
+            i--;
+        }
+    }
+    return true;
+}
+
 //顺序表的实现
 int main() {
     List L;
     L = MakeEmpty();
-    Insert(L, 1, 1);
-    Insert(L, 2, 2);
-    Insert(L, 3, 3);
-    Insert(L, 4, 4);
-    Insert(L, 5, 5);
-    Insert(L, 6, 6);
-    Insert(L, 7, 7);
-    Insert(L, 8, 8);
-    Insert(L, 9, 9);
-    printf("%d", L->Data[0]);
-    printf("%d", L->Data[1]);
-    printf("%d", L->Data[2]);
+    for (int i = 1; i < MAXSIZE; ++i) {
+        Insert(L, i, i);
+        printf("%d \n", L->Data[i - 1]);
+    }
+    DeleteRange(L, 4, 7);
+    for (int i = 0; i < L->Last; ++i) {
+        printf("%d ", L->Data[i]);
+    }
 }
