@@ -7,19 +7,19 @@
 typedef struct LNode *PtrToLNode;
 
 struct LNode {
-    ElementType Data;
-    PtrToLNode Next;
+    int Data;
+    struct LNode *Next;
 };
-typedef PtrToLNode Position;
-typedef PtrToLNode List;
+typedef struct LNode *Position;
+typedef struct LNode *List;
 
-void InitList(List L) {
+void InitList(struct LNode *L) {
     L = (List) malloc(sizeof(struct LNode));
     L->Next = NULL;
 }
 
-int Length(List L) {
-    Position p;
+int Length(struct LNode *L) {
+    struct LNode *p;
     int cnt = 0;
     p = L;
     while (p) {
@@ -29,8 +29,8 @@ int Length(List L) {
     return cnt;
 }
 
-ElementType FindKth(int K, List L) {
-    Position p;
+int FindKth(int K, struct LNode *L) {
+    struct LNode *p;
     int cnt;
     p = L;
     cnt = 1;
@@ -41,7 +41,7 @@ ElementType FindKth(int K, List L) {
     if (cnt == K && p) {
         return p->Data;
     } else {
-        return ERROR;
+        return (-1);
     }
 }
 
@@ -63,8 +63,8 @@ int Find(ElementType X, List L) {
 }
 */
 
-Position Find(ElementType X, List L) {
-    Position p;
+struct LNode * Find(int X, struct LNode *L) {
+    struct LNode *p;
     p = L;
     while (p && p->Data != X) {
         p = p->Next;
@@ -72,8 +72,8 @@ Position Find(ElementType X, List L) {
     return p;
 }
 
-void CreateFromHead(List L) {
-    List S;
+void CreateFromHead(struct LNode *L) {
+    struct LNode *S;
     int x;
     scanf("%d", &x);
     while (x != -1) {
@@ -85,8 +85,9 @@ void CreateFromHead(List L) {
     }
 }
 
-void CreateFromTail(List L) {
-    List S, P;
+void CreateFromTail(struct LNode *L) {
+    struct LNode *S;
+    struct LNode *P;
     int x;
     P = L;
     scanf("%d", &x);
@@ -169,8 +170,9 @@ void deleted(int i, List L) {
 }
 */
 
-bool Delete(List L,int i){
-    Position tmp,pre;
+bool Delete(struct LNode *L, int i){
+    struct LNode *tmp;
+    struct LNode *pre;
     int cnt =0;
 }
 
