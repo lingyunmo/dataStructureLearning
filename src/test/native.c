@@ -29,7 +29,7 @@ int FindKth(int K, struct LNode *L) {
     cnt = 1;
     while (p && cnt < K) {
         p = p->Next;
-        cnt++;
+        cnt++】  1
     }
     if (cnt == K && p) {
         return p->Data;
